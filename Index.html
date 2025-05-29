@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Fortune Teller</title>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <style>
+     img {
+         display: block;
+         margin-left: auto;
+         margin-right: auto;   
+         margin-top:150px;
+         position: relative; 
+         z-index: 1;
+         }   
+     body {
+        font-family: 'Pacifico';
+        background: linear-gradient(120deg, #eb9a9a, #d05959 20%, #f0c722 40%, #f13535 60%, #91b1c1 80%, #297dc6);
+        background-size: 200% 200%;
+        animation: lightningBG 2s linear infinite;
+          }
+          h1 {
+            font-size: 3em;
+            background: linear-gradient(90deg, rgb(153, 255, 0), orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            position: absolute; 
+            left:50 px;
+            top: 50 px;
+            transition: left 0.7s, top 0.7s;
+            z-index: 10;
+            }
+    </style>
+    
+</head>
+
+<body>
+    <h1 id="moving-h1">Roll up your sleeves</h1>      
+    <img id = "fortune-img" src="stickers-fortune-teller-with-crystal-ball.jpg.jpg" alt="Fortune Teller">               
+    <div id="fortunepopup" style="display:none; margin: 20px auto; width: 60%; padding: 20px; background: #fffbe7; border: 2px solid #e0c97f; border-radius: 10px; text-align: center; font-family: 'Quicksand', monospace; font-size: 3em; color: #a60000;"></div>
+   
+    <script>
+        const fortunesentences = [
+            "Everybody lies…",
+            "You can't always get what you want…",
+            "Can't trust people…",
+            "Truth begins in lies. Think about it…",
+            "Unfortunately, you have a deeper problem…",
+            "Law of Nature : Choose the path that gives the greatest rewards for the least amount of effort...",
+            "You can live with dignity, You can’t die with it!",
+            "You idiot!",
+            "Why are you so afraid of making a mistake?",
+            "You should write a thank you note...",
+            "You moron!"
+        ];
+        document.getElementById('fortune-img').onclick = function(e){
+            e.preventDefault();
+            const randomIndex = Math.floor(Math.random() * fortunesentences.length);
+            const popup = document.getElementById('fortunepopup');
+            popup.textContent = fortunesentences[randomIndex];
+            popup.style.display = 'block';
+        };
+        function moveH1OverImage() {
+            const h1 = document.getElementById('moving-h1');
+            const img = document.getElementById('fortune-img');
+            const imgRect = img.getBoundingClientRect();
+            const bodyRect = document.body.getBoundingClientRect();
+
+            // Calculate available horizontal space for h1 over the image
+            const minLeft = imgRect.left - bodyRect.left;
+            const maxLeft = imgRect.left - bodyRect.left + img.offsetWidth - h1.offsetWidth;
+            const left = Math.random() * (maxLeft - minLeft) + minLeft;
+
+            // Set h1 top to image top (relative to document)
+            const top = imgRect.top - bodyRect.top;
+            h1.style.left = left + 'px';
+            h1.style.top = top + 'px';
+        }
+
+        setInterval(moveH1OverImage, 1200);
+        window.addEventListener('resize', moveH1OverImage);
+        window.onload = moveH1OverImage;
+    </script>
+</body>   
+
+</html>
