@@ -1,0 +1,19 @@
+
+body {
+    text-align: center;
+    background-color: lightblue;
+    }
+div {         
+    background-color: rgb(230, 173, 222);
+    }    
+li  {
+    margin: 80px;
+}
+ul,ol{    
+    list-style-position: inside;
+    text-align: left;
+}
+table{
+    float: left;
+}
+                          
